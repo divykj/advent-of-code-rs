@@ -95,8 +95,8 @@ fn get_product_p2(instructions: &[Instruction]) -> u64 {
 
 #[cfg(test)]
 mod tests {
-    use super::{get_product_p1, get_product_p2, solve};
-    use crate::{enums::Part, year_2021::day_02::read_instructions};
+    use super::{get_product_p1, get_product_p2, read_instructions, solve};
+    use crate::enums::Part;
 
     #[test]
     fn part1_example() {
