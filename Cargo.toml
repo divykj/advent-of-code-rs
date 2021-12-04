@@ -1,0 +1,15 @@
+[package]
+name = "advent_of_code"
+version = "1.0.0"
+authors = ["Divya Jain <divykjain@gmail.com>"]
+edition = "2018"
+
+[[bin]]
+name = "aoc"
+path = "src/main.rs"
+
+[dependencies]
+paste = "1.0.4"
+webbrowser = "0.5.5"
+structopt = "0.3.21"
+clipboard = "0.5.0"
