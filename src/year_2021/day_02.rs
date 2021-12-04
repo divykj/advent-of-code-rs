@@ -23,7 +23,7 @@ fn read_instructions(filename: &str) -> Vec<Instruction> {
         .expect("Cannot read input.")
         .lines()
         .map(|raw_instruction| {
-            let raw_instruction = raw_instruction.trim().split(" ").collect::<Vec<_>>();
+            let raw_instruction = raw_instruction.trim().split(' ').collect::<Vec<_>>();
             let distance = raw_instruction[1].parse::<u64>().unwrap();
 
             match raw_instruction[0] {

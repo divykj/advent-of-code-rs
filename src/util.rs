@@ -4,7 +4,7 @@ pub(crate) mod input {
     pub fn read_numbers(filename: &str) -> Vec<u64> {
         fs::read_to_string(filename)
             .expect("Cannot read input.")
-            .split('\n')
+            .lines()
             .map(|line| line.parse::<u64>().unwrap())
             .collect()
     }
