@@ -38,7 +38,7 @@ fn read_input(filename: &str) -> (Vec<u8>, Vec<Board>) {
                 .map(|row| {
                     row.trim()
                         .split_whitespace()
-                        .map(|s| s.parse().expect(format!("Can't parse {}", s).as_str()))
+                        .map(|s| s.parse().unwrap_or_else(|_| panic!("Can't parse {}", s)))
                         .collect()
                 })
                 .collect(),
@@ -49,7 +49,7 @@ fn read_input(filename: &str) -> (Vec<u8>, Vec<Board>) {
 }
 
 fn get_winning_score(draws: &[u8], boards: &[Board]) -> u64 {
-    let mut drawn_numbers: HashSet<u8> = draws[..4].iter().map(|&n| n).collect();
+    let mut drawn_numbers: HashSet<u8> = draws[..4].iter().copied().collect();
 
     for draw in draws[4..].iter() {
         drawn_numbers.insert(*draw);
@@ -66,7 +66,7 @@ fn get_winning_score(draws: &[u8], boards: &[Board]) -> u64 {
 
 fn get_last_winning_score(draws: &[u8], boards: &[Board]) -> u64 {
     let mut remaining_boards = (0..boards.len()).collect::<Vec<usize>>();
-    let mut drawn_numbers: HashSet<u8> = draws[..4].iter().map(|&n| n).collect();
+    let mut drawn_numbers: HashSet<u8> = draws[..4].iter().copied().collect();
 
     for draw in draws[4..].iter() {
         drawn_numbers.insert(*draw);
@@ -80,7 +80,7 @@ fn get_last_winning_score(draws: &[u8], boards: &[Board]) -> u64 {
         }
 
         remaining_boards.retain(|&i| !winning_boards.contains(&i));
-        if remaining_boards.len() == 0 {
+        if remaining_boards.is_empty() {
             return get_board_score(&boards[winning_boards[0]], &drawn_numbers, *draw);
         }
     }
@@ -99,7 +99,7 @@ fn is_winning(board: &Board, draws: &HashSet<u8>) -> bool {
         }
     }
 
-    return false;
+    false
 }
 
 fn get_board_score(board: &Board, draws: &HashSet<u8>, last_draw: u8) -> u64 {
